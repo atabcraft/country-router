@@ -37,7 +37,7 @@ public  class CountryInfoService {
     }
 
     @PostConstruct
-    void readCountriesFromJson() throws IOException{
+    private void readCountriesFromJson() throws IOException{
         File countryFile = this.resourceLoader.getResource(countryJsonPath).getFile();
         ObjectMapper mapper = new ObjectMapper().configure(
             DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
