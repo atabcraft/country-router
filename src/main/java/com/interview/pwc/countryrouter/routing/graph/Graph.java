@@ -27,7 +27,6 @@ public class Graph implements IGraph<Country> {
 
 	@Override
 	public void addEdge(IEdge<Country> e) {
-		e.setAdjected(this);
 		edges.add(e);
 	}
 

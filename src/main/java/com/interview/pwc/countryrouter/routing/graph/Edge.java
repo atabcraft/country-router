@@ -9,9 +9,20 @@ public class Edge implements IEdge<Country> {
 	Integer weight;
 	int dir;
 	
-	public Edge(Integer weight) {
+	/**
+	 * Create directional or undirectional edge between two verixes.
+	 * @param weight any number that models trail
+	 * @param startVertex start vertex of the graph, depending on given direction
+	 * @param direction Integer if greater than or equal of 0 defines left to right orientation of edge, if number is 0 the edge is undirectional otherwise edge defines directional path.
+	 */
+	public Edge(Integer weight, Graph startVertex, int direction) {
 		this.weight = weight;
-		dir = 0;
+		if( direction >= 0){
+			this.lAdjected = startVertex;
+		} else {
+			this.rAdjected = startVertex;
+		}
+		this.dir = direction;
 	}
 
 	
@@ -30,8 +41,6 @@ public class Edge implements IEdge<Country> {
 
 	@Override
 	public IGraph<Country> getAdjected(IGraph<Country> graph) {
-		
-		
 		if( dir == 0 && ( graph.equals(lAdjected) || graph.equals(rAdjected) )){
 			return graph.equals(lAdjected)?rAdjected:lAdjected;
 		}
@@ -48,16 +57,11 @@ public class Edge implements IEdge<Country> {
 
 	@Override
 	public void setAdjected(IGraph<Country> vertex) {
-		if( lAdjected == null && rAdjected == null ){
-			lAdjected = vertex;
-		} else if( lAdjected != null && rAdjected == null ){
+		if( dir >= 0 ){
 			rAdjected = vertex;
-		} else if( lAdjected == null && rAdjected != null){
-			lAdjected = vertex;
 		} else {
-			throw new IllegalArgumentException("Can't set vertex, two adjected vertexes already exist");
+			lAdjected = vertex;
 		}
-		
 	}
 
 	@Override
