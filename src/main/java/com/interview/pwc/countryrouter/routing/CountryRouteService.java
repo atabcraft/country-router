@@ -46,7 +46,7 @@ public class CountryRouteService {
         List<IGraph<Country>> traversedCountries = bfSearch.startSearch(countryVertices);
         CountryDTO result =  new CountryDTO();
         result.setRoute(traversedCountries.stream()
-                        .map(tc -> tc.getClass().getName())
+                        .map(tc -> tc.getData().getCca3())
                         .collect(Collectors.toList()));
         return result;
     }
