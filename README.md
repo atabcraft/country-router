@@ -20,3 +20,15 @@ You can run tests with command
 
 `./mvnw test`
 
+#Example 
+
+## Client request
+
+Request URL: http://localhost:8080/api/routing/AUT/TUR
+Request Method: GET
+Status Code: 200 
+
+## Service response 
+Response Code: 200 
+Body: {"route":["AUT","HUN","ROU","BGR","TUR"]}
+
