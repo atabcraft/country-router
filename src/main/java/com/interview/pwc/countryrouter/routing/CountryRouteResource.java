@@ -31,7 +31,13 @@ public class CountryRouteResource {
 
     @GetMapping("/routing/{source}/{destination}")
     ResponseEntity<CountryDTO> getTraversedCountries(@PathVariable String source,@PathVariable String destination){
-        CountryDTO traversedCountries = this.countryRouteService.traverseCountryBorderPath(source, destination);
+        CountryDTO traversedCountries = null;
+        if(source.isBlank() || destination.isBlank()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        try {
+            traversedCountries = this.countryRouteService.traverseCountryBorderPath(source, destination);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<CountryDTO>(traversedCountries, HttpStatus.OK);
     }
     

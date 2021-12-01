@@ -65,7 +65,7 @@ public  class CountryInfoService {
     public void setupEdgesForGraph(IGraph<Country> graph, Map<String, IGraph<Country>>countryVertices) {
         Country currentCountry = graph.getData();
         for(String countryCode: currentCountry.getBorders()){
-            Edge e = new Edge(currentCountry.getLandlocked() ? UNIVERSAL_COUNTRY_WEIGHT:Integer.MAX_VALUE/2, (Graph) graph, UNIVERSAL_DIRECTION );
+            Edge e = new Edge(UNIVERSAL_COUNTRY_WEIGHT, (Graph) graph, UNIVERSAL_DIRECTION );
             Country borderCountry = this.countries.get(countryCode);
             e.setAdjected(countryVertices.get(borderCountry.getCca3()));
             graph.addEdge(e);

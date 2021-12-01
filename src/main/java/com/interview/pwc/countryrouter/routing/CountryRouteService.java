@@ -30,8 +30,11 @@ public class CountryRouteService {
 
 
     public CountryDTO traverseCountryBorderPath(String source, String destination){
-        Map<String, IGraph<Country>>countryVertices = this.countryInfoService.getCountryMap()
-        .values()
+        Map<String, Country> countryMap = this.countryInfoService.getCountryMap();
+        if( countryMap.get(source) == null || countryMap.get(destination) == null ){
+            throw new IllegalArgumentException("Destination or source country does not exist!");
+        }
+        Map<String, IGraph<Country>>countryVertices = countryMap.values()
         .stream()
         .map(country -> new Graph(country))
         .collect(Collectors.toMap(graph -> graph.getData().getCca3(), graph -> graph));
@@ -50,9 +53,6 @@ public class CountryRouteService {
                         .collect(Collectors.toList()));
         return result;
     }
-
-
-
 
     
 }

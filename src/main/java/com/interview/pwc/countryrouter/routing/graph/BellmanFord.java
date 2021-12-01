@@ -8,8 +8,12 @@ import com.interview.pwc.countryrouter.input.Country;
 import com.interview.pwc.countryrouter.routing.graph.model.IEdge;
 import com.interview.pwc.countryrouter.routing.graph.model.IGraph;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BellmanFord {
 
+	private Logger log = LoggerFactory.getLogger(BellmanFord.class);
 	HashMap<IGraph<Country>, Integer> distances;
 	List<IGraph<Country>> toBeCh;
 	
@@ -48,14 +52,14 @@ public class BellmanFord {
 		}
 
 		end = allVertexes.get(end.getData().getCca3());
-		System.out.println("Shortest path is " + distances.get(end) + " units!");
+		log.info("Shortest path is " + distances.get(end) + " units!");
+		if( distances.get(end) == Integer.MAX_VALUE/2 ) throw new IllegalArgumentException("Destination is unreachable!");
 		List<IGraph<Country>> shortest = new ArrayList<IGraph<Country>>();
 		while( end.getPredecessor() != null ){
 			shortest.add(0,end);
 			end = end.getPredecessor();
 		}
 		shortest.add(0,end);
-		
 		return shortest;
 	}
 
@@ -67,5 +71,7 @@ public class BellmanFord {
 			d.put(v, Integer.MAX_VALUE/2);
 		}
 	}
+
+
 
 }
