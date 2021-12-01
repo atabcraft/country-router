@@ -2,6 +2,7 @@ package com.interview.pwc.countryrouter.routing.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.interview.pwc.countryrouter.input.Country;
 import com.interview.pwc.countryrouter.routing.graph.model.IEdge;
@@ -20,13 +21,13 @@ public class BellmanFord {
 		this.end = end;
 	}
 	
-	public List<IGraph<Country>> startSearch(List<IGraph<Country>> allVertexes){
+	public List<IGraph<Country>> startSearch(Map<String, IGraph<Country>> allVertexes){
 		
 		distances = new HashMap<IGraph<Country>, Integer>();
 		intializeToMax(distances, allVertexes);
 		distances.put(source, 0);
 		toBeCh = new ArrayList<IGraph<Country>>();
-		toBeCh.add(allVertexes.get(allVertexes.indexOf(source)));
+		toBeCh.add(allVertexes.get(source.getData().getCca3()));
 		
 		while ( !toBeCh.isEmpty() ) {
 			IGraph<Country> curentVertex = toBeCh.remove(0);
@@ -45,9 +46,8 @@ public class BellmanFord {
 				}
 			}
 		}
-		
-		int indexOfDes = allVertexes.indexOf(end);
-		end = allVertexes.get(indexOfDes);
+
+		end = allVertexes.get(end.getData().getCca3());
 		System.out.println("Shortest path is " + distances.get(end) + " units!");
 		List<IGraph<Country>> shortest = new ArrayList<IGraph<Country>>();
 		while( end.getPredecessor() != null ){
@@ -61,10 +61,10 @@ public class BellmanFord {
 
 
 
-	private void intializeToMax(HashMap<IGraph<Country>, Integer> d,
-			List<IGraph<Country>> allVertexes) {
-		for(IGraph<Country> v: allVertexes){
-			d.put(v, Integer.MAX_VALUE);
+	private void intializeToMax(Map<IGraph<Country>, Integer> d,
+			Map<String, IGraph<Country>> allVertexes) {
+		for(IGraph<Country> v: allVertexes.values()){
+			d.put(v, Integer.MAX_VALUE/2);
 		}
 	}
 

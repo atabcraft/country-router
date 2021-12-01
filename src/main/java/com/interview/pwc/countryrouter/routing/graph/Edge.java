@@ -1,3 +1,5 @@
+package com.interview.pwc.countryrouter.routing.graph;
+
 import com.interview.pwc.countryrouter.input.Country;
 import com.interview.pwc.countryrouter.routing.graph.model.IEdge;
 import com.interview.pwc.countryrouter.routing.graph.model.IGraph;

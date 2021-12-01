@@ -1,3 +1,5 @@
+package com.interview.pwc.countryrouter.routing.graph;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class Graph implements IGraph<Country> {
 	
 	@Override
 	public String toString() {
-		return (String) this.data.getName().get("common");
+		return this.data.getCca3();
 	}
 
 }
